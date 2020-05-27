@@ -1,16 +1,22 @@
 var userContainer = document.getElementById("user-info");
 var btn = document.getElementById("btn");
+var modal = document.getElementById('modal');
+var modalImg = document.getElementById('modal-img');
+
+modal.addEventListener('click', function(event) {
+  if (event.target === modal) {
+    modal.classList.add('closed');
+  }
+})
 
 btn.addEventListener("click", function() {
   loadUsers();
 });
 
 function loadUsers() {
-  debugger;
   var ourRequest = new XMLHttpRequest();
   ourRequest.open('GET', 'https://json.medrating.org/users/');
   ourRequest.onload = function() {
-      debugger;
       var users = JSON.parse(ourRequest.responseText);
       renderUsers(users);
   };
@@ -38,14 +44,25 @@ function loadUserPhotos(albumId, container) {
 }
 
 function onUserClick(id, event) {
-  loadUserAlbums(id, event.target.parentNode);
+  var containerElement = event.target.parentNode;
+  var isOpen = containerElement.classList.contains('opened');
+  
+  if (isOpen) {
+    containerElement.classList.remove('opened');
+    containerElement.getElementsByClassName('albums')[0].innerHTML = '';
+  } else {
+    containerElement.classList.add('opened');
+    loadUserAlbums(id, containerElement);
+  }
 }
 
 function onAlbumClick(id, event) {
-  loadUserPhotos(id, event.target.parentNode)
+  loadUserPhotos(id, event.target.parentNode);
 }
 
-function onPhotosClick(id, event) {
+function onPhotosClick(src) {
+  modal.classList.remove('closed');
+  modalImg.src = src;
 }
 
 function renderUsers(data) {
@@ -66,7 +83,7 @@ function renderUserAlbums(data, container) {
   for (i = 0; i < data.length; i++) {
     var title = data[i].title ? data[i].title : 'No name';
     var id = data[i].id;
-    content += "<li class='album'><span  onClick='onAlbumClick(" + id + ", event)'>" + title + "</span><ul class='photos'></ul></li>";
+    content += "<li class='album'><span onClick='onAlbumClick(" + id + ", event)'>" + title + "</span><ul class='photos'></ul></li>";
   }
   
   container.getElementsByClassName('albums')[0].insertAdjacentHTML('beforeend', content);
@@ -79,7 +96,7 @@ function renderUserPhotos(data, container) {
     var title = data[i].title ? data[i].title : 'None';
     var url= data[i] ? data[i].url : null;
     var id = data[i].id;
-    content += "<li class='photo'><img width='30px' src='" + url + "' /></li>";
+    content += "<li class='photo'><img width='30px' onClick='onPhotosClick(\"" + url + "\")' src='" + url + "' /></li>";
   }
 
   container.getElementsByClassName('photos')[0].insertAdjacentHTML('beforeend', content);
