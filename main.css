@@ -1,0 +1,30 @@
+.wrap {
+  margin:0 15%;
+  width:20%;
+}
+.child {
+    padding: 10px;
+    float: left;
+    width: 42%;
+    margin-left: 2%;
+    margin-bottom: 5%;
+}
+
+li {
+ list-style: none;
+ text-indent: -1em;
+}
+li::before {
+ content: '\25ba';
+ padding-right: 2px;
+ color: black;
+}
+
+.underLine {text-decoration: underline;
+color: blue;
+}
+
+.photo::before {
+  content: '\2606';
+  padding-right: 3px;
+}
