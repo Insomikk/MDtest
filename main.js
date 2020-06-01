@@ -111,24 +111,30 @@ function renderUserPhotos(data, container) {
   container.getElementsByClassName('photos')[0].insertAdjacentHTML('beforeend', content);
 }
 
-/*
+// get favorites from local storage or empty array
 var favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+// add class 'fav' to each favorite
 favorites.forEach(function(favorite) {
   document.getElementById(favorite).className = 'fav';
 });
-document.querySelector('.photo').addEventListener('click', function(e) {
-  var id = e.target.src,
+// register click event listener
+document.querySelector('.list').addEventListener('click', function(e) {
+  var id = e.target.id,
       item = e.target,
-      index = favorites.indexOf(src);
-  if (!src) return;
+      index = favorites.indexOf(id);
+  // return if target doesn't have an id (shouldn't happen)
+  if (!id) return;
+  // item is not favorite
   if (index == -1) {
-    favorites.push(src);
+    favorites.push(id);
     item.className = 'fav';
+  // item is already favorite
   } else {
     favorites.splice(index, 1);
     item.className = '';
   }
+  // store array in local storage
   localStorage.setItem('favorites', JSON.stringify(favorites));
 });
-*/
+
 //https://jsfiddle.net/farhadB/ocgcejg2/
