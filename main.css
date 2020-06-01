@@ -1,38 +1,31 @@
+body {
+  background-color: #E9F5D5;
+}
 .wrap {
   margin:0 15%;
   width:20%;
 }
 .child {
-    padding: 10px;
-    float: left;
-    width: 42%;
-    margin-left: 2%;
-    margin-bottom: 5%;
+  text-align:center;
+  padding: 10px;
+  float: left;
+  width: 40%;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  text-decoration: underline;
+  color: blue;
+  list-style-type: none;
 }
-
-li {
- list-style: none;
- text-indent: -1em;
+.photo {
+  list-style-type: none;
 }
-li::before {
- content: '\25ba';
- padding-right: 2px;
- color: black;
-}
-
-.underLine {text-decoration: underline;
-color: blue;
-}
-
 .photo::before {
   content: '\2606';
   padding-right: 3px;
 }
-
 .closed {
   display: none;
 }
-
 .modal-backdrop {
   z-index: 3;
   padding-top: 100px;
@@ -44,7 +37,6 @@ color: blue;
   overflow: auto;
   background: rgba(0, 0, 0, 0.5);
 }
-
 .modal-content {
   width: 500px;
   padding: 5px;
@@ -60,7 +52,28 @@ color: blue;
   margin: auto;
   background-color: #fff;
 }
-
 .modal-content img  {
   width: inherit;
+}
+.photo {
+  cursor: pointer;
+}
+.photo:hover:before,
+.photo.fav:before {
+  content: ' \2605';
+  color: rgb(255, 203, 0);
+}
+.photo.fav:hover:before {
+  content: ' \2606';
+}
+.list li {
+  cursor: pointer;
+}
+.list li:hover:after,
+.list li.fav:after {
+  content: ' \2605';
+  color: rgb(255, 203, 0);
+}
+.list li.fav:hover:after {
+  content: ' \2606';
 }
